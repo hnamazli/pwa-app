@@ -132,11 +132,13 @@ function App() {
           Install PWA
         </button>
       )}
-      <pre>
-        {result}
-      </pre>
+      <span>Line subscribe</span>
       <pre>
         {subscribeResult}
+      </pre>
+      <span>Line result</span>
+      <pre>
+        {result}
       </pre>
     </div>
   )
