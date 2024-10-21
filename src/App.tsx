@@ -8,6 +8,7 @@ function App() {
   const [isInstallable, setIsInstallable] = useState(false)
   const [result, setResult] = useState('')
   const [subscribeResult, setSubscribeResult] = useState('')
+  const [isError, setIsError] = useState('')
 
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (e) => {      
@@ -40,9 +41,11 @@ function App() {
       })
     }).then((response) => response.json()).then((data) => {
       setResult(JSON.stringify(data))
+      setIsError('Not error subscribing to notifications')
     }).catch((error) => {
       console.error('Error subscribing to notifications:', error)
       setResult(JSON.stringify(error))
+      setIsError('Error subscribing to notifications')
     })
   }
 
@@ -140,6 +143,10 @@ function App() {
       <pre>
         {result}
       </pre>
+      <span>Line error</span>
+      <span>
+        {isError}
+      </span>
     </div>
   )
 }
