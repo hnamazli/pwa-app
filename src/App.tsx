@@ -7,6 +7,7 @@ function App() {
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
   const [isInstallable, setIsInstallable] = useState(false)
   const [result, setResult] = useState('')
+  const [subscribeResult, setSubscribeResult] = useState('')
 
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (e) => {      
@@ -22,6 +23,8 @@ function App() {
       userVisibleOnly: true,
       applicationServerKey: 'BD7gTHaCVCcPpMA_LcOk_S8OB8TXtnxiwEeD8xiRdcL-A1RsT5gj16rE_IUaSbUaVnZWkEpPQu5IfYEEx_TRAAM'
     })
+
+    setSubscribeResult(JSON.stringify(subscription))
 
     await fetch('https://api-dev.priem.one/api/web-push/subscription', {
       method: 'POST',
@@ -131,6 +134,9 @@ function App() {
       )}
       <pre>
         {result}
+      </pre>
+      <pre>
+        {subscribeResult}
       </pre>
     </div>
   )
