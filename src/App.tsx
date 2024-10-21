@@ -24,16 +24,42 @@ function App() {
     }
   }
 
-  const showNotification = () => {
-    if (notificationPermission === 'granted') {
-      new Notification('Hello from React PWA!', {
-        body: 'This is a test notification.',
-        icon: '/logo192.png'
-      })
+  const showNotification = async () => {
+    const registration = await navigator.serviceWorker.getRegistration();
+
+
+    if (Notification.permission === 'granted') {
+      if('showNotification' in registration!) {
+        registration.showNotification('Test PWA notifications', {
+          body: 'Hello, World!',
+          icon: 'https://placekitten.com/200/300',
+        });
+      } else {
+        new Notification('Test PWA notifications', {
+          body: 'Hello, World!',
+          icon: 'https://placekitten.com/200/300',
+        });
+      }
     } else {
-      alert('Notification permission not granted')
+      if(Notification.permission !== 'denied') {
+        const permission = await Notification.requestPermission();
+    
+        if(permission === 'granted') {
+          if('showNotification' in registration!) {
+            registration.showNotification('Test PWA notifications', {
+              body: 'Hello, World!',
+              icon: 'https://placekitten.com/200/300',
+            });
+          } else {
+            new Notification('Test PWA notifications', {
+              body: 'Hello, World!',
+              icon: 'https://placekitten.com/200/300',
+            });
+          }
+        }
     }
   }
+}
 
   const installPWA = async () => {
     if (deferredPrompt) {
