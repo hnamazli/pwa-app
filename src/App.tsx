@@ -6,6 +6,7 @@ function App() {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null)
   const [isInstallable, setIsInstallable] = useState(false)
+  const [result, setResult] = useState('')
 
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (e) => {      
@@ -34,6 +35,11 @@ function App() {
         userAgent: navigator.userAgent,
         ...subscription.toJSON(),
       })
+    }).then((response) => response.json()).then((data) => {
+      setResult(JSON.stringify(data))
+    }).catch((error) => {
+      console.error('Error subscribing to notifications:', error)
+      setResult(JSON.stringify(error))
     })
   }
 
@@ -123,6 +129,9 @@ function App() {
           Install PWA
         </button>
       )}
+      <pre>
+        {result}
+      </pre>
     </div>
   )
 }
