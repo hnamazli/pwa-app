@@ -9,6 +9,7 @@ function App() {
   const [result, setResult] = useState('')
   const [subscribeResult, setSubscribeResult] = useState('')
   const [isError, setIsError] = useState('')
+  const [userAgent, setUserAgent] = useState('')
 
   useEffect(() => {
     window.addEventListener('beforeinstallprompt', (e) => {      
@@ -26,16 +27,17 @@ function App() {
     })
 
     setSubscribeResult(JSON.stringify(subscription))
+    setUserAgent(navigator.userAgent)
 
     await fetch('https://api-dev.priem.one/api/web-push/subscription', {
       method: 'POST',
       credentials: 'include',
       headers: {
         'Content-Type': 'application/json',
-        Cookie: '_ym_uid=1729330541121820067; _ym_d=1729330541; access_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkNEQ0IxNjk5OEJCQUZGMTkwRjRCQkQxOEM5Q0YyOUYxQjMxOTVCRUVSUzI1NiIsIng1dCI6Inpjc1dtWXU2X3hrUFM3MFl5YzhwOGJNWlctNCIsInR5cCI6ImF0K2p3dCJ9.eyJpc3MiOiJwcmllbS5jb20iLCJuYmYiOjE3MjkzNDM1NjIsImlhdCI6MTcyOTM0MzU2MiwiZXhwIjoxNzMxOTM1NTYyLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiNGYyYzMxM2JmYzM5NDQzYWIxNjNhN2E0Y2Q0YjZiNGEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIyMDQ2IiwiaXNTdHVkZW50IjoiRmFsc2UiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTcGVjaWFsaXN0IiwiY2xpZW50X2lkIjoiUHJpZW0uUHN5LlJFU1QuQVBJIn0.S3x_BCAy_mn6WGpNhBW1ZT0QMVw04vejGa75SF0QBO2gaA6Ffu1qOVSktm8TAVLR3rrqojODp334vcIFOE0gpNj8ZXZiiinPHb39FToXllU1KvrnBw33S1u429k-HWJKPWNMnNahO3-NdbP3TCfXkkpBblkdrnhwjG8W8IX_Etx9Q2oBOnLxV4O0TapVMxF6yLwKzzfBUxpCVGDGEGX916tH3A2RbouPSKq-IxoOkjPjcT4imbcjIibje9jRGIsMFVU4J9gXMvqVYDgekIZ2iUYhn_lu4OwhtYjCQ9_nJ3SUAPk_u3LPAf4EqVfn7bkhp8MI_ZFE0fcviNcSzYU4NQ; refresh_token=wrNXQHldWoEWlujY%2F0l0gDWxEVvD0Sbk4thzwXTqBxY%3D; _ym_isad=2'
+        Cookie: '_ym_uid=1729330625486190489; _ym_d=1729330625; _ym_isad=2; _ym_visorc=w; access_token=eyJhbGciOiJSUzI1NiIsImtpZCI6IkNEQ0IxNjk5OEJCQUZGMTkwRjRCQkQxOEM5Q0YyOUYxQjMxOTVCRUVSUzI1NiIsIng1dCI6Inpjc1dtWXU2X3hrUFM3MFl5YzhwOGJNWlctNCIsInR5cCI6ImF0K2p3dCJ9.eyJpc3MiOiJwcmllbS5jb20iLCJuYmYiOjE3Mjk1ODI2NDYsImlhdCI6MTcyOTU4MjY0NiwiZXhwIjoxNzMyMTc0NjQ2LCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiNGYyYzMxM2JmYzM5NDQzYWIxNjNhN2E0Y2Q0YjZiNGEiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1laWRlbnRpZmllciI6IjIyMDQ2IiwiaXNTdHVkZW50IjoiRmFsc2UiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJTcGVjaWFsaXN0IiwiY2xpZW50X2lkIjoiUHJpZW0uUHN5LlJFU1QuQVBJIn0.AkzHJ-B_WGJZah7k9cYh9bCZK2sqkAgZYT0oS4LKx0lBtviCsn3c3-lWcU9GTFQBKCH6FRcrgd5nxyVZEpgEQe_48Iv_drc5ScelNFNGB0Tyzy2veZArfCck8iECX_BMhNrh0cnoEgs17_bLqGwOL4M8xaejaSeWkZ63I5NRALvr_ICA_FH74Mbbjmj2HXqYf2v1H4KM-4G6NdU_MOHKhIksO9V4sFntVhBskKd94HbLDdzspBQj2-Q1Nsct_j8G0UW3YInS9AgyesiGFsWztPc6bF-9c4VoC69o66y3kOYf_hTXBcHBduZ8nnkwSl23Ym-oOrNyOhkJT2Xq77fe8g; refresh_token=bRh15yrWgNhTGNJi%2BDfFWDYxUdW2kY1dgyuifeN090w%3D'
       },
       body: JSON.stringify({
-        deviceId: 'f1a195bf-c72e-4dee-8705-eb96e1456f27',
+        deviceId: 'fed42cd1-0112-4482-935a-5c9cbc9cccd2',
         userAgent: navigator.userAgent,
         ...subscription.toJSON(),
       })
@@ -43,7 +45,6 @@ function App() {
       setResult(JSON.stringify(data))
       setIsError('Not error subscribing to notifications')
     }).catch((error) => {
-      console.error('Error subscribing to notifications:', error)
       setResult(JSON.stringify(error))
       setIsError('Error subscribing to notifications')
     })
@@ -135,6 +136,10 @@ function App() {
           Install PWA
         </button>
       )}
+      <span>User agent</span>
+      <span>
+        {userAgent}
+      </span>
       <span>Line subscribe</span>
       <pre>
         {subscribeResult}
