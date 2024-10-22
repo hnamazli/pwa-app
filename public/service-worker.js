@@ -28,8 +28,6 @@ self.addEventListener('fetch', (event) => {
 });
 
 self.addEventListener('push', (event) => {
-  event.stopImmediatePropagation();
-  
   const options = {
     body: event.data.text(),
     icon: '/logo192.png',
