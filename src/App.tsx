@@ -66,30 +66,11 @@ function App() {
 
   const requestNotificationPermission = async () => {
     try {
-      if (!("Notification" in window)) {
-        // Check if the browser supports notifications
-        alert("This browser does not support desktop notification");
-
-        return;
-      } 
-
-      if (Notification.permission === 'granted') {
-        setNotificationPermission('granted')
+      const permission = await Notification.requestPermission()
+      setNotificationPermission(permission)
+      if (permission === 'granted') {
         subscribeToNotifications()
-      } else if (Notification.permission !== 'denied') {
-        const permission = await Notification.requestPermission()
-        
-        setNotificationPermission(permission)
-        if (permission === 'granted') {
-          subscribeToNotifications()
-        }
       }
-
-      // const permission = await Notification.requestPermission()
-      // setNotificationPermission(permission)
-      // if (permission === 'granted') {
-      //   subscribeToNotifications()
-      // }
     } catch (error) {
       console.error('Error requesting notification permission:', error)
     }
